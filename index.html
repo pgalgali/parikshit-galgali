@@ -1,0 +1,1026 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Parikshit Galgali - Senior Associate Director, Enterprise Architecture and Corporate Banking Technology.">
+  <title>Parikshit Galgali | Enterprise Architecture</title>
+  <style>
+    :root {
+      --black: #050505;
+      --ink: #111111;
+      --paper: #f7f7f2;
+      --white: #ffffff;
+      --muted: #77746c;
+      --line: rgba(17, 17, 17, .14);
+      --line-dark: rgba(255, 255, 255, .16);
+      --blue: #2f6bff;
+      --red: #e2442f;
+      --gold: #c99b40;
+      --green: #00a36c;
+      --radius: 8px;
+      --max: 1180px;
+      --ease: cubic-bezier(.22, 1, .36, 1);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      padding: 0 clamp(18px, 4vw, 52px);
+      color: var(--white);
+      background: linear-gradient(to bottom, rgba(0,0,0,.72), rgba(0,0,0,.1));
+      backdrop-filter: blur(10px);
+      transition: background .25s ease, color .25s ease, border-color .25s ease;
+    }
+    .site-header.scrolled {
+      color: var(--ink);
+      background: rgba(247,247,242,.84);
+      border-bottom: 1px solid var(--line);
+    }
+    .brand {
+      display: grid;
+      gap: 1px;
+      font-weight: 650;
+      letter-spacing: .01em;
+      line-height: 1.05;
+    }
+    .brand span:last-child {
+      color: rgba(255,255,255,.58);
+      font-size: 11px;
+      font-weight: 520;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    .site-header.scrolled .brand span:last-child { color: var(--muted); }
+    .nav {
+      display: flex;
+      gap: clamp(16px, 2.6vw, 34px);
+      align-items: center;
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+      font-weight: 560;
+    }
+    .site-header.scrolled .nav { color: rgba(17,17,17,.68); }
+    .nav a { transition: color .2s ease; }
+    .nav a:hover { color: var(--white); }
+    .site-header.scrolled .nav a:hover { color: var(--ink); }
+    .nav-cta {
+      border: 1px solid rgba(255,255,255,.38);
+      border-radius: 999px;
+      padding: 8px 14px;
+      color: var(--white);
+    }
+    .site-header.scrolled .nav-cta {
+      border-color: rgba(17,17,17,.24);
+      color: var(--ink);
+    }
+
+    .hero {
+      position: relative;
+      min-height: 94svh;
+      display: grid;
+      align-items: end;
+      padding: 110px clamp(20px, 5vw, 70px) 46px;
+      color: var(--white);
+      background:
+        radial-gradient(circle at 68% 24%, rgba(47,107,255,.34), transparent 24%),
+        linear-gradient(135deg, #050505 0%, #08090c 42%, #15120d 72%, #050505 100%);
+      overflow: hidden;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -12%;
+      background:
+        linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 72px 72px;
+      transform: perspective(900px) rotateX(58deg) translateY(-22%);
+      transform-origin: top;
+      animation: gridDrift 15s linear infinite;
+      opacity: .34;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -8% -34% -8%;
+      height: 55vh;
+      background: radial-gradient(ellipse at center, rgba(255,255,255,.28), rgba(255,255,255,.04) 36%, transparent 70%);
+      filter: blur(14px);
+    }
+    @keyframes gridDrift {
+      from { background-position: 0 0, 0 0; }
+      to { background-position: 0 72px, 72px 0; }
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1.04fr) minmax(320px, .74fr);
+      gap: clamp(36px, 6vw, 74px);
+      align-items: end;
+    }
+    .hero-copy {
+      max-width: 760px;
+      min-width: 0;
+    }
+    h1 {
+      margin: 0;
+      max-width: 820px;
+      font-size: clamp(54px, 7.8vw, 112px);
+      line-height: .88;
+      letter-spacing: 0;
+      font-weight: 720;
+      max-width: 100%;
+      overflow-wrap: normal;
+      word-break: normal;
+    }
+    h1 span { display: block; }
+    .hero-copy p {
+      margin: 24px 0 0;
+      max-width: 670px;
+      color: rgba(255,255,255,.74);
+      font-size: clamp(17px, 2vw, 22px);
+      line-height: 1.55;
+      font-weight: 430;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 14px;
+      font-weight: 650;
+      transition: transform .22s var(--ease), background .22s ease, border-color .22s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button.primary { background: var(--white); color: var(--black); }
+    .button.secondary { border-color: rgba(255,255,255,.32); color: var(--white); }
+    .button.dark { background: var(--ink); color: var(--white); }
+    .button.line { border-color: var(--line); color: var(--ink); }
+    .button svg { width: 17px; height: 17px; }
+
+    .mission-panel {
+      position: relative;
+      min-height: 470px;
+      border: 1px solid rgba(255,255,255,.17);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.055);
+      box-shadow: 0 40px 120px rgba(0,0,0,.46);
+      overflow: hidden;
+    }
+    .mission-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .panel-top {
+      position: absolute;
+      z-index: 2;
+      inset: 0 0 auto 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 18px;
+      color: rgba(255,255,255,.72);
+      font-size: 11px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .panel-top span { white-space: nowrap; }
+    .panel-bottom {
+      position: absolute;
+      z-index: 2;
+      inset: auto 0 0 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border-top: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.24);
+      backdrop-filter: blur(8px);
+    }
+    .panel-stat {
+      padding: 18px;
+      border-right: 1px solid rgba(255,255,255,.14);
+    }
+    .panel-stat:last-child { border-right: 0; }
+    .panel-stat strong {
+      display: block;
+      font-size: 26px;
+      line-height: 1;
+    }
+    .panel-stat span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(255,255,255,.58);
+      font-size: 12px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      border-bottom: 1px solid var(--line);
+      background: var(--white);
+    }
+    .metric {
+      min-height: 142px;
+      padding: 26px clamp(16px, 2.4vw, 30px);
+      border-right: 1px solid var(--line);
+      display: grid;
+      align-content: space-between;
+    }
+    .metric:last-child { border-right: 0; }
+    .metric strong {
+      font-size: clamp(30px, 4vw, 52px);
+      letter-spacing: 0;
+      line-height: 1;
+      font-weight: 680;
+    }
+    .metric span {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 650;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+    }
+
+    .section {
+      padding: clamp(72px, 10vw, 132px) clamp(20px, 5vw, 70px);
+    }
+    .inner {
+      width: min(var(--max), 100%);
+      margin: 0 auto;
+    }
+    .section-head {
+      display: grid;
+      grid-template-columns: .7fr 1.3fr;
+      gap: clamp(24px, 5vw, 68px);
+      align-items: start;
+      margin-bottom: clamp(34px, 6vw, 72px);
+    }
+    .section-index {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 720;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+    h2 {
+      margin: 0;
+      font-size: clamp(34px, 5.8vw, 74px);
+      line-height: .96;
+      letter-spacing: 0;
+      font-weight: 680;
+    }
+    .section-head p {
+      margin: 22px 0 0;
+      max-width: 720px;
+      color: var(--muted);
+      font-size: clamp(16px, 1.8vw, 20px);
+    }
+
+    .proof-grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    .proof-card {
+      min-height: 300px;
+      padding: clamp(24px, 4vw, 42px);
+      background: var(--paper);
+      display: grid;
+      align-content: space-between;
+      overflow: hidden;
+    }
+    .proof-card.dark {
+      color: var(--white);
+      background: var(--black);
+    }
+    .proof-card h3 {
+      margin: 0;
+      max-width: 560px;
+      font-size: clamp(28px, 4vw, 54px);
+      line-height: 1;
+      font-weight: 650;
+    }
+    .proof-card p {
+      margin: 18px 0 0;
+      max-width: 560px;
+      color: var(--muted);
+      font-size: 16px;
+    }
+    .proof-card.dark p { color: rgba(255,255,255,.68); }
+    .proof-label {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .proof-card.dark .proof-label { color: rgba(255,255,255,.58); }
+    .signal {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 6px rgba(0,163,108,.16);
+    }
+    .data-rail {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+      border-top: 0;
+    }
+    .data-cell {
+      padding: 22px;
+      min-height: 140px;
+      background: var(--white);
+    }
+    .data-cell strong { display: block; font-size: 28px; line-height: 1; }
+    .data-cell span {
+      display: block;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .black-band {
+      color: var(--white);
+      background: var(--black);
+    }
+    .black-band .section-index,
+    .black-band .section-head p { color: rgba(255,255,255,.6); }
+    .programs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--line-dark);
+      border: 1px solid var(--line-dark);
+    }
+    .program {
+      min-height: 360px;
+      padding: 28px;
+      background: #0b0b0b;
+      display: grid;
+      align-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+    .program::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(47,107,255,.18), transparent 38%);
+      opacity: 0;
+      transition: opacity .35s ease;
+    }
+    .program:hover::before { opacity: 1; }
+    .program time,
+    .program .tagline {
+      position: relative;
+      color: rgba(255,255,255,.48);
+      font-size: 12px;
+      font-weight: 720;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    .program h3 {
+      position: relative;
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.05;
+      font-weight: 630;
+    }
+    .program p {
+      position: relative;
+      margin: 18px 0 0;
+      color: rgba(255,255,255,.64);
+      font-size: 14px;
+    }
+    .program .outcome {
+      position: relative;
+      color: var(--white);
+      font-size: 13px;
+      font-weight: 720;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    .role {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 1px;
+      background: var(--line);
+    }
+    .role > * {
+      background: var(--white);
+      padding: clamp(22px, 3vw, 34px);
+    }
+    .role time {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 760;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+    .role h3 {
+      margin: 0;
+      font-size: clamp(22px, 3vw, 34px);
+      line-height: 1.05;
+      font-weight: 650;
+    }
+    .role p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      max-width: 760px;
+    }
+
+    .skills-wrap {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .skill-block {
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+    .skill-block h3 {
+      margin: 0 0 14px;
+      font-size: 13px;
+      font-weight: 780;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .skill-block ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .skill-block li {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 10px;
+      color: var(--muted);
+      background: var(--white);
+      font-size: 13px;
+      font-weight: 610;
+    }
+
+    .contact {
+      padding: clamp(72px, 10vw, 124px) clamp(20px, 5vw, 70px);
+      color: var(--white);
+      background:
+        radial-gradient(circle at 85% 10%, rgba(226,68,47,.25), transparent 22%),
+        linear-gradient(130deg, #111 0%, #050505 68%);
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(30px, 6vw, 72px);
+      align-items: end;
+    }
+    .contact h2 { max-width: 720px; }
+    .contact p {
+      max-width: 560px;
+      color: rgba(255,255,255,.64);
+      font-size: 18px;
+      margin: 24px 0 0;
+    }
+    .contact-links {
+      display: grid;
+      gap: 1px;
+      background: var(--line-dark);
+      border: 1px solid var(--line-dark);
+    }
+    .contact-link {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 20px;
+      background: rgba(255,255,255,.045);
+      color: rgba(255,255,255,.72);
+      transition: background .22s ease, color .22s ease;
+    }
+    .contact-link span { overflow-wrap: anywhere; }
+    .contact-link:hover { background: rgba(255,255,255,.1); color: var(--white); }
+    .contact-link strong {
+      color: var(--white);
+      font-size: 13px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 24px clamp(20px, 5vw, 70px);
+      color: rgba(255,255,255,.5);
+      background: var(--black);
+      border-top: 1px solid var(--line-dark);
+      font-size: 13px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .75s var(--ease), transform .75s var(--ease);
+    }
+    .reveal.in { opacity: 1; transform: none; }
+
+    @media (max-width: 980px) {
+      .nav a:not(.nav-cta) { display: none; }
+      .hero-inner,
+      .section-head,
+      .proof-grid,
+      .contact-grid { grid-template-columns: 1fr; }
+      .mission-panel { min-height: 390px; }
+      .metrics { grid-template-columns: repeat(3, 1fr); }
+      .metric { border-bottom: 1px solid var(--line); }
+      .programs,
+      .skills-wrap { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 680px) {
+      .site-header { height: 58px; }
+      .brand span:last-child { display: none; }
+      .nav-cta { padding: 7px 11px; font-size: 12px; }
+      .hero { padding: 90px 24px 34px; }
+      .hero-inner {
+        gap: 30px;
+        width: 100%;
+        max-width: calc(100vw - 48px);
+      }
+      .hero-copy {
+        width: 100%;
+        max-width: 100%;
+      }
+      h1 {
+        width: min(100%, 330px);
+        font-size: clamp(34px, 10.6vw, 42px);
+        line-height: .98;
+      }
+      .hero-copy p {
+        max-width: 330px;
+        font-size: 15px;
+        line-height: 1.58;
+      }
+      .hero-actions { gap: 9px; }
+      .button {
+        min-height: 40px;
+        padding: 0 13px;
+        font-size: 12px;
+      }
+      .mission-panel {
+        width: 100%;
+        max-width: 100%;
+      }
+      .panel-top {
+        gap: 16px;
+        font-size: 9px;
+        letter-spacing: .1em;
+      }
+      .panel-top span:last-child { display: none; }
+      .mission-panel { min-height: 330px; }
+      .metrics,
+      .data-rail,
+      .programs,
+      .skills-wrap { grid-template-columns: 1fr; }
+      .metric { min-height: 116px; border-right: 0; }
+      .role { grid-template-columns: 1fr; }
+      footer { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .001ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Parikshit Galgali home">
+      <span>Parikshit Galgali</span>
+      <span>Enterprise Architecture</span>
+    </a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="#impact">Impact</a>
+      <a href="#programs">Programs</a>
+      <a href="#career">Career</a>
+      <a href="#capability">Capability</a>
+      <a class="nav-cta" href="#contact">Connect</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-label="Executive profile">
+      <div class="hero-inner">
+        <div class="hero-copy reveal">
+          <h1><span>Banking</span><span>technology,</span><span>engineered</span><span>for scale.</span></h1>
+          <p>Senior Associate Director at HSBC Global Banking & Markets, leading enterprise architecture, regulatory technology, cloud transformation, and resilience programs across capital markets estates.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="mailto:pgalgali@gmail.com" aria-label="Email Parikshit Galgali">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm-.4 4.25-7.07 5.22a.9.9 0 0 1-1.06 0L4.4 8.25V6.8l7.6 5.62 7.6-5.62v1.45Z"/></svg>
+              Start a conversation
+            </a>
+            <a class="button secondary" href="https://linkedin.com/in/parikshitgalgali" target="_blank" rel="noreferrer">
+              LinkedIn profile
+            </a>
+          </div>
+        </div>
+
+        <div class="mission-panel reveal" aria-label="Animated enterprise architecture system map">
+          <canvas class="mission-canvas" id="missionCanvas"></canvas>
+          <div class="panel-top">
+            <span>HSBC GBM</span>
+            <span>Pune, India</span>
+          </div>
+          <div class="panel-bottom">
+            <div class="panel-stat"><strong>25+</strong><span>Engineers led</span></div>
+            <div class="panel-stat"><strong>$2M+</strong><span>P&L accountability</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="Key executive metrics">
+      <div class="metric"><strong data-count="18">0</strong><span>Years</span></div>
+      <div class="metric"><strong data-count="25">0</strong><span>Engineers</span></div>
+      <div class="metric"><strong data-count="2" data-suffix="M+">$0</strong><span>P&L</span></div>
+      <div class="metric"><strong data-count="30" data-suffix="%+">0</strong><span>Cost reduction</span></div>
+      <div class="metric"><strong data-count="99.99" data-suffix="%">0</strong><span>Tier-1 SLA</span></div>
+      <div class="metric"><strong data-count="7">0</strong><span>Cloud programs</span></div>
+    </section>
+
+    <section class="section" id="impact">
+      <div class="inner">
+        <div class="section-head reveal">
+          <div class="section-index">01 / Impact</div>
+          <div>
+            <h2>Board-level strategy turned into operating systems.</h2>
+            <p>Architecture leadership across cloud-native platforms, digital banking APIs, capital markets workflows, regulatory reporting, and operational resilience.</p>
+          </div>
+        </div>
+        <div class="proof-grid reveal">
+          <article class="proof-card dark">
+            <div class="proof-label"><span class="signal"></span>Near real-time compliance</div>
+            <div>
+              <h3>T+2 reporting compressed to live regulatory intelligence.</h3>
+              <p>Designed Debezium CDC, Snowflake, BigQuery, Apache Camel, and federated data patterns across multi-jurisdictional reporting mandates.</p>
+            </div>
+          </article>
+          <article class="proof-card">
+            <div class="proof-label"><span class="signal"></span>Enterprise resilience</div>
+            <div>
+              <h3>100% RTO compliance for Priority-1 systems.</h3>
+              <p>Owned BC/DR posture, Read-Across exercises, quantified risk packs, and executive reporting for CTO and risk governance forums.</p>
+            </div>
+          </article>
+        </div>
+        <div class="data-rail reveal" aria-label="Impact data points">
+          <div class="data-cell"><strong>30%+</strong><span>Infrastructure cost reduction through AWS, GCP, Kubernetes, and platform modernization.</span></div>
+          <div class="data-cell"><strong>99.99%</strong><span>Availability sustained across Tier-1 regulatory technology platforms.</span></div>
+          <div class="data-cell"><strong>Zero</strong><span>RBI examiner findings on India Data Localisation and data residency architecture.</span></div>
+          <div class="data-cell"><strong>25%</strong><span>Delivery cycle-time reduction via Agile@Scale and engineering communities of practice.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section black-band" id="programs">
+      <div class="inner">
+        <div class="section-head reveal">
+          <div class="section-index">02 / Landmark programs</div>
+          <div>
+            <h2>Complex programs with measurable outcomes.</h2>
+            <p>The through-line: regulated banking systems that move faster without losing auditability, resilience, or executive control.</p>
+          </div>
+        </div>
+        <div class="programs reveal">
+          <article class="program">
+            <time>2022 - 2024</time>
+            <div>
+              <h3>India Data Localisation</h3>
+              <p>Hybrid data residency on GCP Mumbai and on-premises platforms for Indian-origin payments data.</p>
+            </div>
+            <div class="outcome">RBI compliant, zero findings</div>
+          </article>
+          <article class="program">
+            <time>2021 - 2023</time>
+            <div>
+              <h3>Regulatory Data Lake</h3>
+              <p>Starburst and Trino federated query layer with CDC ingestion and lineage for MiFID II, EMIR, and CFTC.</p>
+            </div>
+            <div class="outcome">60%+ query uplift</div>
+          </article>
+          <article class="program">
+            <time>2022 - 2023</time>
+            <div>
+              <h3>Treasury API Platform</h3>
+              <p>Event-driven CQRS architecture for FX, rates, high-throughput reads, billing, archival, and notifications.</p>
+            </div>
+            <div class="outcome">Reference architecture adopted</div>
+          </article>
+          <article class="program">
+            <time>2021 - Present</time>
+            <div>
+              <h3>Operational Resilience</h3>
+              <p>Business continuity, RTO/RPO governance, control-gap analysis, and executive risk posture reporting.</p>
+            </div>
+            <div class="outcome">Priority-1 RTO achieved</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="career">
+      <div class="inner">
+        <div class="section-head reveal">
+          <div class="section-index">03 / Career</div>
+          <div>
+            <h2>18+ years from engineering depth to enterprise ownership.</h2>
+            <p>Progression across BFSI, payments, telecom, manufacturing, and global banking technology with increasing architecture, delivery, and governance scope.</p>
+          </div>
+        </div>
+        <div class="timeline reveal">
+          <article class="role">
+            <time>Sep 2018 - Present</time>
+            <div>
+              <h3>Senior Associate Director / Lead Architect, HSBC Global Banking & Markets</h3>
+              <p>Leads 25+ engineers across capital markets and regulatory reporting squads. Owns cloud modernization, real-time regulatory data pipelines, resilience governance, India Data Localisation, and $2M+ technology delivery portfolio.</p>
+            </div>
+          </article>
+          <article class="role">
+            <time>Jan 2016 - Sep 2018</time>
+            <div>
+              <h3>Technical Architect, Cognizant Technology Solutions</h3>
+              <p>Defined software architecture vision and technology roadmaps for a European telecom client, including due diligence, offshoring strategy, governance, and developer experience improvements.</p>
+            </div>
+          </article>
+          <article class="role">
+            <time>Sep 2014 - Jan 2016</time>
+            <div>
+              <h3>Senior Consultant, Capgemini</h3>
+              <p>Architected payments platforms, supported acquisition technology due diligence, and improved delivery pipelines for stronger payment products.</p>
+            </div>
+          </article>
+          <article class="role">
+            <time>2006 - 2014</time>
+            <div>
+              <h3>Engineering foundation across Cognizant, SunGard/FIS, Tieto, and T-Systems</h3>
+              <p>Delivered Java enterprise systems across BFSI, manufacturing, telecom, Nordic banking and insurance, capital markets, and wealth management platforms.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="capability">
+      <div class="inner">
+        <div class="section-head reveal">
+          <div class="section-index">04 / Capability</div>
+          <div>
+            <h2>Architecture, cloud, data, governance.</h2>
+            <p>A practical stack for regulated enterprise transformation, from board narrative down to production controls.</p>
+          </div>
+        </div>
+        <div class="skills-wrap reveal">
+          <div class="skill-block">
+            <h3>Cloud & Infrastructure</h3>
+            <ul>
+              <li>AWS Certified</li><li>GCP Certified</li><li>Kubernetes / GKE</li><li>Terraform</li><li>Docker</li><li>Jenkins</li>
+            </ul>
+          </div>
+          <div class="skill-block">
+            <h3>Data & Integration</h3>
+            <ul>
+              <li>Apache Kafka</li><li>Debezium CDC</li><li>Snowflake</li><li>BigQuery</li><li>Starburst / Trino</li><li>Apache Camel</li>
+            </ul>
+          </div>
+          <div class="skill-block">
+            <h3>Architecture Patterns</h3>
+            <ul>
+              <li>Microservices</li><li>Event-driven systems</li><li>CQRS</li><li>API Banking</li><li>Data Mesh</li><li>Operational Resilience</li>
+            </ul>
+          </div>
+          <div class="skill-block">
+            <h3>Leadership</h3>
+            <ul>
+              <li>P&L Governance</li><li>Agile@Scale</li><li>SAFe</li><li>Vendor Ecosystem</li><li>Risk Committees</li><li>Executive Reporting</li>
+            </ul>
+          </div>
+          <div class="skill-block">
+            <h3>Certifications</h3>
+            <ul>
+              <li>GCP Professional Architect</li><li>GCP Data Engineer</li><li>AWS Solutions Architect</li><li>PMP</li><li>PRINCE2</li><li>ITIL</li>
+            </ul>
+          </div>
+          <div class="skill-block">
+            <h3>Domains</h3>
+            <ul>
+              <li>Capital Markets</li><li>Corporate Banking</li><li>Treasury APIs</li><li>RegTech</li><li>Data Residency</li><li>BC/DR</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contact">
+      <div class="inner contact-grid">
+        <div class="reveal">
+          <h2>Let's build the next regulated platform.</h2>
+          <p>Open to Senior Associate Director / Director roles, strategic consulting, advisory conversations, and speaking opportunities in enterprise architecture and digital banking.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="mailto:pgalgali@gmail.com">pgalgali@gmail.com</a>
+            <a class="button secondary" href="tel:+919970725987">+91 9970725987</a>
+          </div>
+        </div>
+        <div class="contact-links reveal">
+          <a class="contact-link" href="https://linkedin.com/in/parikshitgalgali" target="_blank" rel="noreferrer"><strong>LinkedIn</strong><span>linkedin.com/in/parikshitgalgali</span></a>
+          <a class="contact-link" href="mailto:pgalgali@gmail.com"><strong>Email</strong><span>pgalgali@gmail.com</span></a>
+          <div class="contact-link"><strong>Location</strong><span>Pune, Maharashtra, India</span></div>
+          <div class="contact-link"><strong>Current</strong><span>HSBC Global Banking & Markets</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span>(c) 2026 Parikshit Galgali</span>
+    <span>BE Information Technology, University of Pune - PMI Member</span>
+  </footer>
+
+  <script>
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const header = document.querySelector(".site-header");
+
+    function syncHeader() {
+      header.classList.toggle("scrolled", window.scrollY > window.innerHeight * 0.72);
+    }
+    window.addEventListener("scroll", syncHeader, { passive: true });
+    syncHeader();
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("in");
+      });
+    }, { threshold: 0.14 });
+    document.querySelectorAll(".reveal").forEach((el) => revealObserver.observe(el));
+
+    const metricObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting || entry.target.dataset.done) return;
+        entry.target.dataset.done = "true";
+        animateMetric(entry.target);
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll("[data-count]").forEach((el) => metricObserver.observe(el));
+
+    function animateMetric(el) {
+      const target = Number(el.dataset.count);
+      const suffix = el.dataset.suffix || "+";
+      const prefix = suffix === "M+" ? "$" : "";
+      if (reduceMotion) {
+        el.textContent = prefix + target + suffix;
+        return;
+      }
+      const start = performance.now();
+      const duration = 1200;
+      const decimals = String(target).includes(".") ? 2 : 0;
+      function tick(now) {
+        const progress = Math.min(1, (now - start) / duration);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const value = target * eased;
+        el.textContent = prefix + value.toFixed(decimals) + suffix;
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    }
+
+    const canvas = document.getElementById("missionCanvas");
+    const ctx = canvas.getContext("2d");
+    let width = 0;
+    let height = 0;
+    const nodes = [
+      { x: .50, y: .36, r: 30, label: "EA" },
+      { x: .27, y: .26, r: 15, label: "AWS" },
+      { x: .72, y: .22, r: 16, label: "GCP" },
+      { x: .22, y: .55, r: 18, label: "REG" },
+      { x: .72, y: .58, r: 18, label: "API" },
+      { x: .48, y: .72, r: 15, label: "RISK" }
+    ];
+    const links = [[0,1],[0,2],[0,3],[0,4],[0,5],[3,5],[2,4],[1,3]];
+
+    function sizeCanvas() {
+      const rect = canvas.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = rect.width;
+      height = rect.height;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    window.addEventListener("resize", sizeCanvas);
+    sizeCanvas();
+
+    function drawNetwork(time = 0) {
+      ctx.clearRect(0, 0, width, height);
+      const cx = width / 2;
+      const cy = height * .42;
+      const pulse = reduceMotion ? 0 : Math.sin(time / 900) * .5 + .5;
+      ctx.save();
+      ctx.translate(cx, cy);
+      for (let i = 0; i < 4; i++) {
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 58 + i * 42 + pulse * 8, 28 + i * 23, (i * Math.PI) / 8 + time / 9000, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(255,255,255,${0.08 - i * 0.012})`;
+        ctx.lineWidth = 1;
+        ctx.stroke();
+      }
+      ctx.restore();
+
+      links.forEach(([a, b], index) => {
+        const n1 = nodes[a];
+        const n2 = nodes[b];
+        const x1 = n1.x * width;
+        const y1 = n1.y * height;
+        const x2 = n2.x * width;
+        const y2 = n2.y * height;
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+        ctx.strokeStyle = "rgba(255,255,255,.16)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        if (!reduceMotion) {
+          const t = ((time / 1500 + index * .17) % 1);
+          ctx.beginPath();
+          ctx.arc(x1 + (x2 - x1) * t, y1 + (y2 - y1) * t, 3, 0, Math.PI * 2);
+          ctx.fillStyle = index % 2 ? "#2f6bff" : "#ffffff";
+          ctx.fill();
+        }
+      });
+
+      nodes.forEach((node, index) => {
+        const x = node.x * width;
+        const y = node.y * height;
+        const breathing = reduceMotion ? 0 : Math.sin(time / 700 + index) * 2;
+        ctx.beginPath();
+        ctx.arc(x, y, node.r + breathing + 14, 0, Math.PI * 2);
+        ctx.fillStyle = index === 0 ? "rgba(47,107,255,.16)" : "rgba(255,255,255,.05)";
+        ctx.fill();
+        ctx.beginPath();
+        ctx.arc(x, y, node.r + breathing, 0, Math.PI * 2);
+        ctx.fillStyle = index === 0 ? "#ffffff" : "rgba(255,255,255,.9)";
+        ctx.fill();
+        ctx.fillStyle = index === 0 ? "#050505" : "#111111";
+        ctx.font = `${index === 0 ? 13 : 10}px Inter, system-ui`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(node.label, x, y);
+      });
+      requestAnimationFrame(drawNetwork);
+    }
+    drawNetwork();
+  </script>
+</body>
+</html>
